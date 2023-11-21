@@ -49,7 +49,7 @@ GLFWmonitor *monitors;
 void getResolution(void);
 
 // Cámara 
-Camera camera(glm::vec3(0.0f, 40.0f, 260.0f));
+Camera camera(glm::vec3(0.0f, 40.0f, 320.0f));
 float MovementSpeed = 0.5f;
 float lastX = SCR_WIDTH / 2.0f;
 float lastY = SCR_HEIGHT / 2.0f;
@@ -688,7 +688,7 @@ int main()
 		staticShader.setVec3("dirLight.direction", lightDirection);
 		staticShader.setVec3("dirLight.ambient", glm::vec3(0.9f, 0.9f, 0.9f));
 		staticShader.setVec3("dirLight.diffuse", glm::vec3(0.4f, 0.4f, 0.4f));
-		staticShader.setVec3("dirLight.specular", glm::vec3(0.3f, 0.3f, 0.3f));
+		staticShader.setVec3("dirLight.specular", glm::vec3(0.4f, 0.4f, 0.4f));
 
 		staticShader.setVec3("pointLight[0].position", lightPosition);
 		staticShader.setVec3("pointLight[0].ambient", glm::vec3(0.0f, 0.0f, 0.0f));
@@ -983,7 +983,7 @@ int main()
 		animShader.setMat4("projection", projection);
 		animShader.setMat4("view", view);
 		animShader.setVec3("material.specular", glm::vec3(0.5f));
-		animShader.setFloat("material.shininess", 30.0f);
+		animShader.setFloat("material.shininess", 32.0f);
 		animShader.setVec3("light.ambient", ambientColor);
 		animShader.setVec3("light.diffuse", diffuseColor);
 		animShader.setVec3("light.specular", 1.0f, 1.0f, 1.0f);
@@ -991,7 +991,7 @@ int main()
 		animShader.setVec3("viewPos", camera.Position);
 
 		model = glm::translate(glm::mat4(1.0f), glm::vec3(50.0f, 1.0f, 40.0f));
-		model = glm::scale(model, glm::vec3(0.85f));
+		model = glm::scale(model, glm::vec3(0.7f));
 		animShader.setMat4("model", model);
 		animacionPersonaje.Draw(animShader);
 

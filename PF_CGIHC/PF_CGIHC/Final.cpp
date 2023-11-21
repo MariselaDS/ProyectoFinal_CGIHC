@@ -107,7 +107,7 @@ typedef struct _frame
 }FRAME;
 
 FRAME KeyFrame[MAX_FRAMES];
-int FrameIndex = 0;			//introducir número en caso de tener Key guardados
+int FrameIndex = 63;			//introducir número en caso de tener Key guardados
 bool play = false;
 int playIndex = 0;
 
@@ -336,7 +336,7 @@ int main()
 
 
 	//Inicialización de KeyFrames
-	/*KeyFrame[0].posX = 0.0f;
+	KeyFrame[0].posX = 0.0f;
 	KeyFrame[0].posY = 0.0f;
 	KeyFrame[0].posZ = 0.0f;
 	KeyFrame[0].giroMonito = -45.0f;
@@ -655,7 +655,7 @@ int main()
 	KeyFrame[62].posX = 0.0f;
 	KeyFrame[62].posY = 0.0f;
 	KeyFrame[62].posZ = 0.0f;
-	KeyFrame[62].giroMonito = 0.0f;*/
+	KeyFrame[62].giroMonito = 0.0f;
 	
 
 	// draw in wireframe

@@ -49,8 +49,8 @@ GLFWmonitor *monitors;
 void getResolution(void);
 
 // Cámara 
-Camera camera(glm::vec3(0.0f, 50.0f, 220.0f));
-float MovementSpeed = 0.1f;
+Camera camera(glm::vec3(0.0f, 40.0f, 260.0f));
+float MovementSpeed = 0.5f;
 float lastX = SCR_WIDTH / 2.0f;
 float lastY = SCR_HEIGHT / 2.0f;
 bool firstMouse = true;
@@ -63,7 +63,7 @@ double	deltaTime = 0.0f,
 
 //Lighting
 glm::vec3 lightPosition(0.0f, 4.0f, -10.0f);
-glm::vec3 lightDirection(0.0f, -1.0f, -1.0f);
+glm::vec3 lightDirection(0.0f, 1.0f, 0.0f);
 
 //// Light
 glm::vec3 lightColor = glm::vec3(0.7f);
@@ -92,7 +92,7 @@ float	incX = 0.0f,
 		incZ = 0.0f,
 		giroMonitoInc = 0.0f;
 
-#define MAX_FRAMES 2
+#define MAX_FRAMES 63
 int i_max_steps = 1
 ;
 int i_curr_steps = 0;
@@ -306,6 +306,7 @@ int main()
 	Model lago("resources/objects/Lago/lago.obj");
 	Model fuente("resources/objects/Fuente/Fuen.obj");
 	Model museo("resources/objects/museo/museo/museo.obj");
+	Model techo("resources/objects/Techo/techo.obj");
 	Model banca("resources/objects/Silla/Silla.obj");
 	Model caballo("resources/objects/tiroAlBlanco/tiroalblanco.obj");
 	Model stitch("resources/objects/Stitch/Stitch.obj");
@@ -330,10 +331,12 @@ int main()
 	Model vilma("resources/objects/Vilma/WB_Vilma.obj");
 	Model carroPicapiedras("resources/objects/CarroPicapiedras/WB_CarroPicapiedras.obj");
 	Model pedro("resources/objects/Pedro/WB_Pedro.obj");
+	ModelAnim animacionPersonaje("resources/objects/Personaje/PersonajeBrazo.dae");
+	animacionPersonaje.initShaders(animShader.ID);
 
 
 	//Inicialización de KeyFrames
-	KeyFrame[0].posX = 0.0f;
+	/*KeyFrame[0].posX = 0.0f;
 	KeyFrame[0].posY = 0.0f;
 	KeyFrame[0].posZ = 0.0f;
 	KeyFrame[0].giroMonito = -45.0f;
@@ -652,7 +655,7 @@ int main()
 	KeyFrame[62].posX = 0.0f;
 	KeyFrame[62].posY = 0.0f;
 	KeyFrame[62].posZ = 0.0f;
-	KeyFrame[62].giroMonito = 0.0f;
+	KeyFrame[62].giroMonito = 0.0f;*/
 	
 
 	// draw in wireframe
@@ -743,6 +746,11 @@ int main()
 		model = glm::scale(model, glm::vec3(0.13f));
 		staticShader.setMat4("model", model);
 		museo.Draw(staticShader);
+
+		model = glm::translate(glm::mat4(1.0f), glm::vec3(10.0f, 0.2f, 5.0f));
+		model = glm::scale(model, glm::vec3(0.13f));
+		staticShader.setMat4("model", model);
+		techo.Draw(staticShader);
 
 		model = glm::translate(glm::mat4(1.0f), glm::vec3(35.0f, 0.0f, -48.0f));
 		model = glm::scale(model, glm::vec3(1.0f));
@@ -968,6 +976,24 @@ int main()
 		model = glm::scale(model, glm::vec3(2.5f));
 		staticShader.setMat4("model", model);
 		pedro.Draw(staticShader);
+
+		// Personaje animado
+
+		animShader.use();
+		animShader.setMat4("projection", projection);
+		animShader.setMat4("view", view);
+		animShader.setVec3("material.specular", glm::vec3(0.5f));
+		animShader.setFloat("material.shininess", 30.0f);
+		animShader.setVec3("light.ambient", ambientColor);
+		animShader.setVec3("light.diffuse", diffuseColor);
+		animShader.setVec3("light.specular", 1.0f, 1.0f, 1.0f);
+		animShader.setVec3("light.direction", lightDirection);
+		animShader.setVec3("viewPos", camera.Position);
+
+		model = glm::translate(glm::mat4(1.0f), glm::vec3(50.0f, 1.0f, 40.0f));
+		model = glm::scale(model, glm::vec3(0.85f));
+		animShader.setMat4("model", model);
+		animacionPersonaje.Draw(animShader);
 
 
 		// -------------------------------------------------------------------------------------------------------------------------

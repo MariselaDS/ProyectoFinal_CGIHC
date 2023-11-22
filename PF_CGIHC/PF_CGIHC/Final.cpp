@@ -50,7 +50,7 @@ void getResolution(void);
 
 // Cámara 
 Camera camera(glm::vec3(0.0f, 40.0f, 320.0f));
-float MovementSpeed = 0.5f;
+float MovementSpeed = 0.1f;
 float lastX = SCR_WIDTH / 2.0f;
 float lastY = SCR_HEIGHT / 2.0f;
 bool firstMouse = true;
@@ -87,14 +87,51 @@ float	posX = 0.0f,
 		posY = 0.0f,
 		posZ = 0.0f,
 		giroMonito = 0.0f;
+float	giroCaballoTorso = 0.0f,
+		giroCaballoCabeza = 0.0f,
+		giroCola = 0.0f,
+		giroPD1arriba = 0.0f, giroPD1abajo = 0.0f,
+		giroPD2arriba = 0.0f, giroPD2abajo = 0.0f, giroPDbase = 0.0f,
+		giroPT1arriba = 0.0f, giroPT1abajo = 0.0f,
+		giroPT2arriba = 0.0f, giroPT2abajo = 0.0f;
+float	bf_Y = 0.0f,
+		bf_Z = 0.0f,
+		gCabeza = 0.0f,
+		gP1_PataA = 0.0f,
+		gP2_PataA = 0.0f,
+		gP3_PataA = 0.0f,
+		gP1_PataBC = 0.0f,
+		gP2_PataBC = 0.0f,
+		gP3_PataBC = 0.0f,
+		gPinzas = 0.0f,
+		gOjo = 0.0f;
+
 float	incX = 0.0f,
 		incY = 0.0f,
 		incZ = 0.0f,
 		giroMonitoInc = 0.0f;
+float	giroCaballoTorsoInc = 0.0f,
+		giroCaballoCabezaInc = 0.0f,
+		giroColaInc = 0.0f,
+		giroPD1arribaInc = 0.0f, giroPD1abajoInc = 0.0f,
+		giroPD2arribaInc = 0.0f, giroPD2abajoInc = 0.0f, giroPDbaseInc = 0.0f,
+		giroPT1arribaInc = 0.0f, giroPT1abajoInc = 0.0f,
+		giroPT2arribaInc = 0.0f, giroPT2abajoInc = 0.0f;
+float	bf_YInc = 0.0f,
+		bf_ZInc = 0.0f,
+		gCabezaInc = 0.0f,
+		gP1_PataAInc = 0.0f,
+		gP2_PataAInc = 0.0f,
+		gP3_PataAInc = 0.0f,
+		gP1_PataBCInc = 0.0f,
+		gP2_PataBCInc = 0.0f,
+		gP3_PataBCInc = 0.0f,
+		gPinzasInc = 0.0f,
+		gOjoInc = 0.0f;
 
-#define MAX_FRAMES 63
-int i_max_steps = 1
-;
+
+#define MAX_FRAMES 70
+int i_max_steps = 1;
 int i_curr_steps = 0;
 typedef struct _frame
 {
@@ -103,7 +140,24 @@ typedef struct _frame
 	float posY;		//Variable para PosicionY
 	float posZ;		//Variable para PosicionZ
 	float giroMonito;
-
+	float	giroCaballoTorso,
+			giroCaballoCabeza,
+			giroCola,
+			giroPD1arriba, giroPD1abajo,
+			giroPD2arriba, giroPD2abajo, giroPDbase,
+			giroPT2arriba, giroPT2abajo,
+			giroPT1arriba, giroPT1abajo;
+	float	bf_Y,
+			bf_Z,
+			gCabeza,
+			gP1_PataA,
+			gP2_PataA,
+			gP3_PataA,
+			gP1_PataBC,
+			gP2_PataBC,
+			gP3_PataBC,
+			gPinzas,
+			gOjo;
 }FRAME;
 
 FRAME KeyFrame[MAX_FRAMES];
@@ -119,12 +173,49 @@ void saveFrame(void)
 	KeyFrame[FrameIndex].posX = posX;
 	KeyFrame[FrameIndex].posY = posY;
 	KeyFrame[FrameIndex].posZ = posZ;
-
 	KeyFrame[FrameIndex].giroMonito = giroMonito;
 	std::cout << "posicion x = " << posX << std::endl;
 	std::cout << "posicion y = " << posY << std::endl;
 	std::cout << "posicion z = " << posZ << std::endl;
 	std::cout << "posicion giroMonito = " << giroMonito << std::endl;
+	
+	KeyFrame[FrameIndex].giroCaballoTorso = giroCaballoTorso;
+	KeyFrame[FrameIndex].giroCaballoCabeza = giroCaballoCabeza;
+	KeyFrame[FrameIndex].giroCola = giroCola;
+	KeyFrame[FrameIndex].giroPD1arriba = giroPD1arriba; KeyFrame[FrameIndex].giroPD1abajo = giroPD1abajo;
+	KeyFrame[FrameIndex].giroPD2arriba = giroPD2arriba; KeyFrame[FrameIndex].giroPD2abajo = giroPD2abajo; KeyFrame[FrameIndex].giroPDbase = giroPDbase;
+	KeyFrame[FrameIndex].giroPT1arriba = giroPT1arriba; KeyFrame[FrameIndex].giroPT1abajo = giroPT1abajo;
+	KeyFrame[FrameIndex].giroPT2arriba = giroPT2arriba; KeyFrame[FrameIndex].giroPT2abajo = giroPT2abajo;
+	std::cout << giroCaballoTorso << " "
+		<< giroCaballoCabeza << " "
+		<< giroCola << " "
+		<< giroPD1arriba << " " << giroPD1abajo << " "
+		<< giroPD2arriba << " " << giroPD2abajo << " " << giroPDbase
+		<< " " << giroPT1arriba << " " << giroPT1abajo
+		<< " " << giroPT2arriba << " " << giroPT2abajo << std::endl;
+
+	KeyFrame[FrameIndex].bf_Y = bf_Y;
+	KeyFrame[FrameIndex].bf_Z = bf_Z;
+	KeyFrame[FrameIndex].gCabeza = gCabeza;
+	KeyFrame[FrameIndex].gP1_PataA = gP1_PataA;
+	KeyFrame[FrameIndex].gP2_PataA = gP2_PataA;
+	KeyFrame[FrameIndex].gP3_PataA = gP3_PataA;
+	KeyFrame[FrameIndex].gP1_PataBC = gP1_PataBC;
+	KeyFrame[FrameIndex].gP2_PataBC = gP2_PataBC;
+	KeyFrame[FrameIndex].gP3_PataBC = gP3_PataBC;
+	KeyFrame[FrameIndex].gPinzas = gPinzas;
+	KeyFrame[FrameIndex].gOjo = gOjo;
+	std::cout << bf_Y << " "
+		<< bf_Z << " "
+		<< gCabeza << " "
+		<< gP1_PataA << " "
+		<< gP2_PataA << " "
+		<< gP3_PataA << " "
+		<< gP1_PataBC << " "
+		<< gP2_PataBC << " "
+		<< gP3_PataBC << " "
+		<< gPinzas << " "
+		<< gOjo << std::endl;
 
 	FrameIndex++;
 }
@@ -134,19 +225,61 @@ void resetElements(void)
 	posX = KeyFrame[0].posX;
 	posY = KeyFrame[0].posY;
 	posZ = KeyFrame[0].posZ;
-
-	
 	giroMonito = KeyFrame[0].giroMonito;
+
+	giroCaballoTorso = KeyFrame[0].giroCaballoTorso;
+	giroCaballoCabeza = KeyFrame[0].giroCaballoCabeza;
+	giroCola = KeyFrame[0].giroCola;
+	giroPD1arriba = KeyFrame[0].giroPD1arriba; giroPD1abajo = KeyFrame[0].giroPD1abajo;
+	giroPD2arriba = KeyFrame[0].giroPD2arriba; giroPD2abajo = KeyFrame[0].giroPD2abajo; giroPDbase = KeyFrame[0].giroPDbase;
+	giroPT1arriba = KeyFrame[0].giroPT1arriba; giroPT1abajo = KeyFrame[0].giroPT1abajo;
+	giroPT2arriba = KeyFrame[0].giroPT2arriba; giroPT2abajo = KeyFrame[0].giroPT2abajo;
+
+	bf_Y = KeyFrame[0].bf_Y;
+	bf_Z = KeyFrame[0].bf_Z;
+	gCabeza = KeyFrame[0].gCabeza;
+	gP1_PataA = KeyFrame[0].gP1_PataA;
+	gP2_PataA = KeyFrame[0].gP2_PataA;
+	gP3_PataA = KeyFrame[0].gP3_PataA;
+	gP1_PataBC = KeyFrame[0].gP1_PataBC;
+	gP2_PataBC = KeyFrame[0].gP2_PataBC;
+	gP3_PataBC = KeyFrame[0].gP3_PataBC;
+	gPinzas = KeyFrame[0].gPinzas;
+	gOjo = KeyFrame[0].gOjo;
 }
+
 
 void interpolation(void)
 {
 	incX = (KeyFrame[playIndex + 1].posX - KeyFrame[playIndex].posX) / i_max_steps;
 	incY = (KeyFrame[playIndex + 1].posY - KeyFrame[playIndex].posY) / i_max_steps;
 	incZ = (KeyFrame[playIndex + 1].posZ - KeyFrame[playIndex].posZ) / i_max_steps;
-
 	giroMonitoInc = (KeyFrame[playIndex + 1].giroMonito - KeyFrame[playIndex].giroMonito) / i_max_steps;
 
+	giroCaballoTorsoInc = (KeyFrame[playIndex + 1].giroCaballoTorso - KeyFrame[playIndex].giroCaballoTorso) / i_max_steps;
+	giroCaballoCabezaInc = (KeyFrame[playIndex + 1].giroCaballoCabeza - KeyFrame[playIndex].giroCaballoCabeza) / i_max_steps;
+	giroColaInc = (KeyFrame[playIndex + 1].giroCola - KeyFrame[playIndex].giroCola) / i_max_steps;
+	giroPD1arribaInc = (KeyFrame[playIndex + 1].giroPD1arriba - KeyFrame[playIndex].giroPD1arriba) / i_max_steps;
+	giroPD1abajoInc = (KeyFrame[playIndex + 1].giroPD1abajo - KeyFrame[playIndex].giroPD1abajo) / i_max_steps;
+	giroPD2arribaInc = (KeyFrame[playIndex + 1].giroPD2arriba - KeyFrame[playIndex].giroPD2arriba) / i_max_steps;
+	giroPD2abajoInc = (KeyFrame[playIndex + 1].giroPD2abajo - KeyFrame[playIndex].giroPD2abajo) / i_max_steps;
+	giroPDbaseInc = (KeyFrame[playIndex + 1].giroPDbase - KeyFrame[playIndex].giroPDbase) / i_max_steps;
+	giroPT1arribaInc = (KeyFrame[playIndex + 1].giroPT1arriba - KeyFrame[playIndex].giroPT1arriba) / i_max_steps;
+	giroPT1abajoInc = (KeyFrame[playIndex + 1].giroPT1abajo - KeyFrame[playIndex].giroPT1abajo) / i_max_steps;
+	giroPT2arribaInc = (KeyFrame[playIndex + 1].giroPT2arriba - KeyFrame[playIndex].giroPT2arriba) / i_max_steps;
+	giroPT2abajoInc = (KeyFrame[playIndex + 1].giroPT2abajo - KeyFrame[playIndex].giroPT2abajo) / i_max_steps;
+
+	bf_YInc = (KeyFrame[playIndex + 1].bf_Y - KeyFrame[playIndex].bf_Y) / i_max_steps;
+	bf_ZInc = (KeyFrame[playIndex + 1].bf_Z - KeyFrame[playIndex].bf_Z) / i_max_steps;
+	gCabezaInc = (KeyFrame[playIndex + 1].gCabeza - KeyFrame[playIndex].gCabeza) / i_max_steps;
+	gP1_PataAInc = (KeyFrame[playIndex + 1].gP1_PataA - KeyFrame[playIndex].gP1_PataA) / i_max_steps;
+	gP2_PataAInc = (KeyFrame[playIndex + 1].gP2_PataA - KeyFrame[playIndex].gP2_PataA) / i_max_steps;
+	gP3_PataAInc = (KeyFrame[playIndex + 1].gP3_PataA - KeyFrame[playIndex].gP3_PataA) / i_max_steps;
+	gP1_PataBCInc = (KeyFrame[playIndex + 1].gP1_PataBC - KeyFrame[playIndex].gP1_PataBC) / i_max_steps;
+	gP2_PataBCInc = (KeyFrame[playIndex + 1].gP2_PataBC - KeyFrame[playIndex].gP2_PataBC) / i_max_steps;
+	gP3_PataBCInc = (KeyFrame[playIndex + 1].gP3_PataBC - KeyFrame[playIndex].gP3_PataBC) / i_max_steps;
+	gPinzasInc = (KeyFrame[playIndex + 1].gPinzas - KeyFrame[playIndex].gPinzas) / i_max_steps;
+	gOjoInc = (KeyFrame[playIndex + 1].gOjo - KeyFrame[playIndex].gOjo) / i_max_steps;
 }
 
 void animate(void)
@@ -176,8 +309,27 @@ void animate(void)
 			posX += incX;
 			posY += incY;
 			posZ += incZ;
-
 			giroMonito += giroMonitoInc;
+
+			giroCaballoTorso += giroCaballoTorsoInc;
+			giroCaballoCabeza += giroCaballoCabezaInc;
+			giroCola += giroColaInc;
+			giroPD1arriba += giroPD1arribaInc; giroPD1abajo += giroPD1abajoInc;
+			giroPD2arriba += giroPD2arribaInc; giroPD2abajo += giroPD2abajoInc; giroPDbase += giroPDbaseInc;
+			giroPT1arriba += giroPT1arribaInc; giroPT1abajo += giroPT1abajoInc;
+			giroPT2arriba += giroPT2arribaInc; giroPT2abajo += giroPT2abajoInc;
+
+			bf_Y += bf_YInc;
+			bf_Z += bf_ZInc;
+			gCabeza += gCabezaInc;
+			gP1_PataA += gP1_PataAInc;
+			gP2_PataA += gP2_PataAInc;
+			gP3_PataA += gP3_PataAInc;
+			gP1_PataBC += gP1_PataBCInc;
+			gP2_PataBC += gP2_PataBCInc;
+			gP3_PataBC += gP3_PataBCInc;
+			gPinzas += gPinzas;
+			gOjo += gOjo;
 
 			i_curr_steps++;
 		}
@@ -301,14 +453,14 @@ int main()
 	// load models
 	// -----------
 	Model piso("resources/objects/piso/PisoArboles.obj");
-	Model baby("resources/objects/babyface/babyface.obj");
+	//Model baby("resources/objects/babyface/babyface.obj");
 	Model sullivan("resources/objects/sullivan/sullivan.obj");
 	Model lago("resources/objects/Lago/lago.obj");
 	Model fuente("resources/objects/Fuente/Fuen.obj");
 	Model museo("resources/objects/museo/museo/museo.obj");
-	Model techo("resources/objects/Techo/techo.obj");
+	//Model techo("resources/objects/Techo/techo.obj");
 	Model banca("resources/objects/Silla/Silla.obj");
-	Model caballo("resources/objects/tiroAlBlanco/tiroalblanco.obj");
+	//Model caballo("resources/objects/tiroAlBlanco/tiroalblanco.obj");
 	Model stitch("resources/objects/Stitch/Stitch.obj");
 	Model lilo("resources/objects/Lilo/lilo.obj");
 	Model mcqueen("resources/objects/McQueen/mcqueenCarroceria.obj");
@@ -333,6 +485,48 @@ int main()
 	Model pedro("resources/objects/Pedro/WB_Pedro.obj");
 	ModelAnim animacionPersonaje("resources/objects/Personaje/PersonajeBrazo.dae");
 	animacionPersonaje.initShaders(animShader.ID);
+
+	//Carga de modelos para construir 'Tiro al Blanco' 
+	Model cabeza_caballo("resources/objects/caballo_por_piezas/cabeza_caballoTS.obj");
+	Model torso_caballo("resources/objects/caballo_por_piezas/cuerpo_caballoTS.obj");
+	Model cola_caballo("resources/objects/caballo_por_piezas/cola_caballoTS.obj");
+	Model pataDel1_arriba_caballo("resources/objects/caballo_por_piezas/pataDel1_arriba_caballoTS.obj");
+	Model pataDel1_abajo_caballo("resources/objects/caballo_por_piezas/pataDel1_abajo_caballoTS.obj");
+	Model pataDel1_planta_caballo("resources/objects/caballo_por_piezas/pataDel1_planta_caballoTS.obj");
+	Model pataDel2_arriba_caballo("resources/objects/caballo_por_piezas/pataDel2_arriba_caballoTS.obj");
+	Model pataDel2_abajo_caballo("resources/objects/caballo_por_piezas/pataDel2_abajo_caballoTS.obj");
+	Model pataDel2_planta_caballo("resources/objects/caballo_por_piezas/pataDel2_planta_caballoTS.obj");
+	Model pataTras1_arriba_caballo("resources/objects/caballo_por_piezas/pataTras1_arriba_caballoTS.obj");
+	Model pataTras1_abajo_caballo("resources/objects/caballo_por_piezas/pataTras1_abajo_caballoTS.obj");
+	Model pataTras1_planta_caballo("resources/objects/caballo_por_piezas/pataTras1_planta_caballoTS.obj");
+	Model pataTras2_arriba_caballo("resources/objects/caballo_por_piezas/pataTras2_arriba_caballoTS.obj");
+	Model pataTras2_abajo_caballo("resources/objects/caballo_por_piezas/pataTras2_abajo_caballoTS.obj");
+	Model pataTras2_planta_caballo("resources/objects/caballo_por_piezas/pataTras2_planta_caballoTS.obj");
+
+	//Carga de modelos para construir 'BabyFace' 
+	Model alfombra_babyface("resources/objects/babyface_por_piezas/babyface_Alfombra.obj");
+	Model cuerpo_babyface("resources/objects/babyface_por_piezas/babyface_Base.obj");
+	Model cabeza_babyface("resources/objects/babyface_por_piezas/babyface_Cabeza.obj");
+	Model ojo_babyface("resources/objects/babyface_por_piezas/babyface_Ojo.obj");
+	Model par1_PataA_Del("resources/objects/babyface_por_piezas/babyface_Par1_PataA_Del.obj");
+	Model par1_PataA_Tras("resources/objects/babyface_por_piezas/babyface_Par1_PataA_Tras.obj");
+	Model par2_PataA_Del("resources/objects/babyface_por_piezas/babyface_Par2_PataA_Del.obj");
+	Model par2_PataA_Tras("resources/objects/babyface_por_piezas/babyface_Par2_PataA_Tras.obj");
+	Model par3_PataA_Izq("resources/objects/babyface_por_piezas/babyface_Par3_PataA_Izq.obj");
+	Model par3_PataA_Der("resources/objects/babyface_por_piezas/babyface_Par3_PataA_Der.obj");
+	Model par1_PataBC_Del("resources/objects/babyface_por_piezas/babyface_Par1_PataBC_Del.obj");
+	Model par1_PataBC_Tras("resources/objects/babyface_por_piezas/babyface_Par1_PataBC_Tras.obj");
+	Model par2_PataBC_Del("resources/objects/babyface_por_piezas/babyface_Par2_PataBC_Del.obj");
+	Model par2_PataBC_Tras("resources/objects/babyface_por_piezas/babyface_Par2_PataBC_Tras.obj");
+	Model par3_PataBC_Izq("resources/objects/babyface_por_piezas/babyface_Par3_PataBC_Izq.obj");
+	Model par3_PataBC_Der("resources/objects/babyface_por_piezas/babyface_Par3_PataBC_Der.obj");
+	Model brazo_Izq("resources/objects/babyface_por_piezas/babyface_Brazo_Izq.obj");
+	Model brazo_Der("resources/objects/babyface_por_piezas/babyface_Brazo_Der.obj");
+	Model pinza_Izq_Sup("resources/objects/babyface_por_piezas/babyface_Pinza_Izq_Sup.obj");
+	Model pinza_Izq_Inf("resources/objects/babyface_por_piezas/babyface_Pinza_Izq_Inf.obj");
+	Model pinza_Der_Sup("resources/objects/babyface_por_piezas/babyface_Pinza_Der_Sup.obj");
+	Model pinza_Der_Inf("resources/objects/babyface_por_piezas/babyface_Pinza_Der_Inf.obj");
+
 
 
 	//Inicialización de KeyFrames
@@ -721,6 +915,11 @@ int main()
 
 		glm::mat4 model = glm::mat4(1.0f);
 		glm::mat4 tmp = glm::mat4(1.0f);
+		glm::mat4 tmpCTS = glm::mat4(1.0f);
+		glm::mat4 tmpCTS2 = glm::mat4(1.0f);
+		glm::mat4 tmpBTS = glm::mat4(1.0f);
+		glm::mat4 tmpBTS2 = glm::mat4(1.0f);
+
 		// view/projection transformations
 		glm::mat4 projection = glm::perspective(glm::radians(camera.Zoom), (float)SCR_WIDTH / (float)SCR_HEIGHT, 0.1f, 10000.0f);
 		glm::mat4 view = camera.GetViewMatrix();
@@ -747,11 +946,11 @@ int main()
 		staticShader.setMat4("model", model);
 		museo.Draw(staticShader);
 
-		model = glm::translate(glm::mat4(1.0f), glm::vec3(10.0f, 0.2f, 5.0f));
+/*		model = glm::translate(glm::mat4(1.0f), glm::vec3(10.0f, 0.2f, 5.0f));
 		model = glm::scale(model, glm::vec3(0.13f));
 		staticShader.setMat4("model", model);
 		techo.Draw(staticShader);
-
+*/
 		model = glm::translate(glm::mat4(1.0f), glm::vec3(35.0f, 0.0f, -48.0f));
 		model = glm::scale(model, glm::vec3(1.0f));
 		staticShader.setMat4("model", model);
@@ -805,7 +1004,7 @@ int main()
 
 		// SALA DISNEY PIXAR
 
-		model = glm::translate(glm::mat4(1.0f), glm::vec3(-36.0f, 1.0f, 48.0f));
+/*		model = glm::translate(glm::mat4(1.0f), glm::vec3(-36.0f, 1.0f, 48.0f));
 		model = glm::rotate(model, glm::radians(90.0f), glm::vec3(0.0f, 1.0f, 0.0f));
 		model = glm::scale(model, glm::vec3(0.4f));
 		staticShader.setMat4("model", model);
@@ -816,7 +1015,7 @@ int main()
 		model = glm::scale(model, glm::vec3(0.06f));
 		staticShader.setMat4("model", model);
 		caballo.Draw(staticShader);
-
+*/
 		model = glm::translate(glm::mat4(1.0f), glm::vec3(-54.0f, 1.0f, 28.0f));
 		model = glm::rotate(model, glm::radians(90.0f), glm::vec3(0.0f, 1.0f, 0.0f));
 		model = glm::scale(model, glm::vec3(0.065f));
@@ -877,6 +1076,220 @@ int main()
 		model = glm::scale(model, glm::vec3(0.2f));
 		staticShader.setMat4("model", model);
 		lilo.Draw(staticShader);
+
+		// -------------------------------------------------------------------------------------------------------------------------
+		// Personaje: Tiro Al Blanco
+		// -------------------------------------------------------------------------------------------------------------------------
+
+		// Caballo  torso
+		model = glm::translate(glm::mat4(1.0f), glm::vec3(-55.0f, 5.95f, 63.0f));
+		model = glm::rotate(model, glm::radians(135.0f), glm::vec3(0.0f, 1.0f, 0.0));
+		tmpCTS = model = glm::rotate(model, glm::radians(giroCaballoTorso), glm::vec3(1.0f, 0.0f, 0.0));
+		staticShader.setMat4("model", model);
+		torso_caballo.Draw(staticShader);
+
+		// Caballo  cabeza
+		model = glm::translate(tmpCTS, glm::vec3(0.0f, 4.0f, 4.0f));
+		model = glm::rotate(model, glm::radians(giroCaballoCabeza), glm::vec3(1.0f, 0.0f, 0.0));
+		staticShader.setMat4("model", model);
+		cabeza_caballo.Draw(staticShader);
+
+		// Caballo cola
+		model = glm::translate(tmpCTS, glm::vec3(0.0f, 2.0f, -1.0f));
+		model = glm::rotate(model, glm::radians(giroCola), glm::vec3(1.0f, 0.0f, 0.0));
+		staticShader.setMat4("model", model);
+		cola_caballo.Draw(staticShader);
+
+		// Caballo pata delantera 1 arriba
+		model = glm::translate(tmpCTS, glm::vec3(-1.1f, 1.2f, 5.2f)); //6.2
+		tmpCTS2 = model = glm::rotate(model, glm::radians(giroPD1arriba), glm::vec3(1.0f, 0.0f, 0.0));
+		staticShader.setMat4("model", model);
+		pataDel1_arriba_caballo.Draw(staticShader);
+		// Caballo pata delantera 1 abajo
+		model = glm::translate(tmpCTS2, glm::vec3(0.0f, -2.4f, 0.3f));
+		model = glm::rotate(model, glm::radians(giroPD1abajo), glm::vec3(1.0f, 0.0f, 0.0));
+		staticShader.setMat4("model", model);
+		pataDel1_abajo_caballo.Draw(staticShader);
+		// Caballo pata delantera 1 planta
+		model = glm::translate(model, glm::vec3(0.0f, -2.4f, -0.3f));
+		model = glm::rotate(model, glm::radians(giroPDbase), glm::vec3(1.0f, 0.0f, 0.0));
+		staticShader.setMat4("model", model);
+		pataDel1_planta_caballo.Draw(staticShader);
+
+		// Caballo pata delantera 2 arriba
+		model = glm::translate(tmpCTS, glm::vec3(1.1f, 1.2f, 5.2f));
+		tmpCTS2 = model = glm::rotate(model, glm::radians(giroPD2arriba), glm::vec3(1.0f, 0.0f, 0.0));
+		staticShader.setMat4("model", model);
+		pataDel2_arriba_caballo.Draw(staticShader);
+		// Caballo pata delantera 2 abajo
+		model = glm::translate(tmpCTS2, glm::vec3(0.0f, -2.4f, 0.3f));
+		model = glm::rotate(model, glm::radians(giroPD2abajo), glm::vec3(1.0f, 0.0f, 0.0));
+		staticShader.setMat4("model", model);
+		pataDel2_abajo_caballo.Draw(staticShader);
+		// Caballo pata delantera 2 planta
+		model = glm::translate(model, glm::vec3(0.0f, -2.4f, -0.3f));
+		model = glm::rotate(model, glm::radians(giroPDbase), glm::vec3(1.0f, 0.0f, 0.0));
+		staticShader.setMat4("model", model);
+		pataDel2_planta_caballo.Draw(staticShader);
+
+		// Caballo pata trasera 1 arriba
+		model = glm::translate(tmpCTS, glm::vec3(-1.1f, 1.2f, 0.2f));
+		tmpCTS2 = model = glm::rotate(model, glm::radians(giroPT1arriba), glm::vec3(1.0f, 0.0f, 0.0));
+		staticShader.setMat4("model", model);
+		pataTras1_arriba_caballo.Draw(staticShader);
+		// Caballo pata trasera 1 abajo
+		model = glm::translate(tmpCTS2, glm::vec3(0.0f, -2.4f, 0.3f));
+		model = glm::rotate(model, glm::radians(giroPT1abajo), glm::vec3(1.0f, 0.0f, 0.0));
+		staticShader.setMat4("model", model);
+		pataTras1_abajo_caballo.Draw(staticShader);
+		// Caballo pata trasera 1 planta
+		model = glm::translate(model, glm::vec3(0.0f, -2.4f, -0.3f));
+		staticShader.setMat4("model", model);
+		pataTras1_planta_caballo.Draw(staticShader);
+
+		// Caballo pata trasera 2 arriba
+		model = glm::translate(tmpCTS, glm::vec3(1.1f, 1.2f, 0.2f));
+		tmpCTS2 = model = glm::rotate(model, glm::radians(giroPT2arriba), glm::vec3(1.0f, 0.0f, 0.0));
+		staticShader.setMat4("model", model);
+		pataDel2_arriba_caballo.Draw(staticShader);
+		// Caballo pata trasera 2 abajo
+		model = glm::translate(tmpCTS2, glm::vec3(0.0f, -2.4f, 0.3f));
+		model = glm::rotate(model, glm::radians(giroPT2abajo), glm::vec3(1.0f, 0.0f, 0.0));
+		staticShader.setMat4("model", model);
+		pataDel2_abajo_caballo.Draw(staticShader);
+		// Caballo pata trasera 2 planta
+		model = glm::translate(model, glm::vec3(0.0f, -2.4f, -0.3f));
+		staticShader.setMat4("model", model);
+		pataDel2_planta_caballo.Draw(staticShader);
+
+
+		// -------------------------------------------------------------------------------------------------------------------------
+		// Personaje: BabyFace
+		// -------------------------------------------------------------------------------------------------------------------------
+
+		// BabyFace Alfombra
+		model = glm::translate(glm::mat4(1.0f), glm::vec3(-36.0f, 2.0f, 48.0f));
+		model = glm::rotate(model, glm::radians(90.0f), glm::vec3(0.0f, 1.0f, 0.0f));
+		staticShader.setMat4("model", model);
+		alfombra_babyface.Draw(staticShader);
+
+		// BabyFace base
+		model = glm::translate(glm::mat4(1.0f), glm::vec3(-36.0f, 4.0f, 48.0f));
+		model = glm::translate(model, glm::vec3(bf_Z, bf_Y, 0.0f));
+		tmpBTS = model = glm::rotate(model, glm::radians(90.0f), glm::vec3(0.0f, 1.0f, 0.0f));
+		staticShader.setMat4("model", model);
+		cuerpo_babyface.Draw(staticShader);
+
+		// BabyFace cabeza
+		model = glm::translate(tmpBTS, glm::vec3(0.0f, 0.64f, 0.0f));
+		tmpBTS2 = model = glm::rotate(model, glm::radians(gCabeza), glm::vec3(0.0f, 1.0f, 0.0f));
+		staticShader.setMat4("model", model);
+		cabeza_babyface.Draw(staticShader);
+
+		// BabyFace ojo
+		model = glm::translate(tmpBTS2, glm::vec3(0.5376f, 1.3868f, 0.985f));
+		model = glm::rotate(model, glm::radians(gOjo), glm::vec3(1.0f, 0.0f, 0.0f));
+		staticShader.setMat4("model", model);
+		ojo_babyface.Draw(staticShader);
+
+		// BabyFace Par 1 de Patas A, pata delantera
+		model = glm::translate(tmpBTS, glm::vec3(-1.28f, 0.0f, 1.28f));
+		tmpBTS2 = model = glm::rotate(model, glm::radians(gP1_PataA), glm::vec3(1.0f, 0.0f, 1.0f));
+		staticShader.setMat4("model", model);
+		par1_PataA_Del.Draw(staticShader);
+		// BabyFace Par 1 de Patas BC, pata delantera
+		model = glm::translate(tmpBTS2, glm::vec3(-0.85f, 0.833f, 0.973f)); //LISTO
+		model = glm::rotate(model, glm::radians(gP1_PataBC), glm::vec3(1.0f, 0.0f, 1.0f));
+		staticShader.setMat4("model", model);
+		par1_PataBC_Del.Draw(staticShader);
+
+		// BabyFace Par 1 de Patas A, pata trasera
+		model = glm::translate(tmpBTS, glm::vec3(1.28f, 0.0f, -1.28f));
+		tmpBTS2 = model = glm::rotate(model, glm::radians(gP1_PataA), glm::vec3(-1.0f, 0.0f, -1.0f));
+		staticShader.setMat4("model", model);
+		par1_PataA_Tras.Draw(staticShader);
+		// BabyFace Par 1 de Patas BC, pata trasera
+		model = glm::translate(tmpBTS2, glm::vec3(1.145f, 1.548f, -1.08f)); //LISTO
+		model = glm::rotate(model, glm::radians(gP1_PataBC), glm::vec3(-1.0f, 0.0f, -1.0f));
+		staticShader.setMat4("model", model);
+		par1_PataBC_Tras.Draw(staticShader);
+
+		// BabyFace Par 2 de Patas A, pata delantera
+		model = glm::translate(tmpBTS, glm::vec3(1.28f, 0.0f, 1.28f));
+		tmpBTS2 = model = glm::rotate(model, glm::radians(gP2_PataA), glm::vec3(-1.0f, 0.0f, 1.0f));
+		staticShader.setMat4("model", model);
+		par2_PataA_Del.Draw(staticShader);
+		// BabyFace Par 2 de Patas BC, pata delantera
+		model = glm::translate(tmpBTS2, glm::vec3(0.893f, 0.831f, 0.959f)); //LISTO
+		model = glm::rotate(model, glm::radians(gP2_PataBC), glm::vec3(-1.0f, 0.0f, 1.0f));
+		staticShader.setMat4("model", model);
+		par2_PataBC_Del.Draw(staticShader);
+
+		// BabyFace Par 2 de Patas A, pata trasera
+		model = glm::translate(tmpBTS, glm::vec3(-1.28f, 0.0f, -1.28f));
+		tmpBTS2 = model = glm::rotate(model, glm::radians(gP2_PataA), glm::vec3(1.0f, 0.0f, -1.0f));
+		staticShader.setMat4("model", model);
+		par2_PataA_Tras.Draw(staticShader);
+		// BabyFace Par 2 de Patas BC, pata trasera
+		model = glm::translate(tmpBTS2, glm::vec3(-1.154f, 1.569f, -1.08f)); //LISTO
+		model = glm::rotate(model, glm::radians(gP2_PataBC), glm::vec3(1.0f, 0.0f, -1.0f));
+		staticShader.setMat4("model", model);
+		par2_PataBC_Tras.Draw(staticShader);
+
+		// BabyFace Par 3 de Patas A, pata izquierda
+		model = glm::translate(tmpBTS, glm::vec3(-1.5f, -0.03f, 0.0f));
+		tmpBTS2 = model = glm::rotate(model, glm::radians(gP3_PataA), glm::vec3(0.0f, 0.0f, 1.0f));
+		staticShader.setMat4("model", model);
+		par3_PataA_Izq.Draw(staticShader);
+		// BabyFace Par 3 de Patas BC, pata izquierda
+		model = glm::translate(tmpBTS2, glm::vec3(-1.542f, 1.554f, 0.0f)); //LISTO
+		model = glm::rotate(model, glm::radians(gP3_PataBC), glm::vec3(0.0f, 0.0f, 1.0f));
+		staticShader.setMat4("model", model);
+		par3_PataBC_Izq.Draw(staticShader);
+
+		// BabyFace Par 3 de Patas A, pata derecha
+		model = glm::translate(tmpBTS, glm::vec3(1.5f, -0.03f, 0.0f));
+		tmpBTS2 = model = glm::rotate(model, glm::radians(gP3_PataA), glm::vec3(0.0f, 0.0f, -1.0f));
+		staticShader.setMat4("model", model);
+		par3_PataA_Der.Draw(staticShader);
+		// BabyFace Par 3 de Patas BC, pata derecha
+		model = glm::translate(tmpBTS2, glm::vec3(1.583f, 1.569f, -0.0f)); //LISTO
+		model = glm::rotate(model, glm::radians(gP3_PataBC), glm::vec3(0.0f, 0.0f, -1.0f));
+		staticShader.setMat4("model", model);
+		par3_PataBC_Der.Draw(staticShader);
+
+		// BabyFace Brazo izquierdo
+		model = glm::translate(tmpBTS, glm::vec3(-1.117f, -0.436f, 2.845f));
+		tmpBTS2 = model = glm::rotate(model, glm::radians(0.0f), glm::vec3(0.0f, 1.0f, 0.0f));
+		staticShader.setMat4("model", model);
+		brazo_Izq.Draw(staticShader);
+		// BabyFace Pinza Izq Superior
+		model = glm::translate(tmpBTS2, glm::vec3(0.024f, 1.57f, 0.151f));
+		model = glm::rotate(model, glm::radians(gPinzas), glm::vec3(0.25f, 0.0f, 0.1f));
+		staticShader.setMat4("model", model);
+		pinza_Izq_Sup.Draw(staticShader);
+		// BabyFace Pinza Izq Inferior
+		model = glm::translate(tmpBTS2, glm::vec3(0.043f, 1.557f, 0.123f));
+		model = glm::rotate(model, glm::radians(gPinzas), glm::vec3(-0.25, 0.0f, -0.1f));
+		staticShader.setMat4("model", model);
+		pinza_Izq_Inf.Draw(staticShader);
+
+		// BabyFace Brazo derecho
+		model = glm::translate(tmpBTS, glm::vec3(1.123f, -0.427f, 2.847f));
+		tmpBTS2 = model = glm::rotate(model, glm::radians(0.0f), glm::vec3(0.0f, 1.0f, 0.0f));
+		staticShader.setMat4("model", model);
+		brazo_Der.Draw(staticShader);
+		// BabyFace Pinza Der Superior
+		model = glm::translate(tmpBTS2, glm::vec3(-0.389f, 1.394f, -0.7f));
+		model = glm::rotate(model, glm::radians(gPinzas), glm::vec3(0.25f, 0.0f, -0.1f));
+		staticShader.setMat4("model", model);
+		pinza_Der_Sup.Draw(staticShader);
+		// BabyFace Pinza Der Inferior
+		model = glm::translate(tmpBTS2, glm::vec3(-0.369f, 1.365f, -0.687f));
+		model = glm::rotate(model, glm::radians(gPinzas), glm::vec3(-0.25f, 0.0f, 0.1f));
+		staticShader.setMat4("model", model);
+		pinza_Der_Inf.Draw(staticShader);
+
 
 		//SALA STUDIO GHIBLI
 

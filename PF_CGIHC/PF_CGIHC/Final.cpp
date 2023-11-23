@@ -131,7 +131,7 @@ float	bf_YInc = 0.0f,
 
 
 #define MAX_FRAMES 70
-int i_max_steps = 1;
+int i_max_steps = 10;
 int i_curr_steps = 0;
 typedef struct _frame
 {
@@ -453,14 +453,12 @@ int main()
 	// load models
 	// -----------
 	Model piso("resources/objects/piso/PisoArboles.obj");
-	//Model baby("resources/objects/babyface/babyface.obj");
 	Model sullivan("resources/objects/sullivan/sullivan.obj");
 	Model lago("resources/objects/Lago/lago.obj");
 	Model fuente("resources/objects/Fuente/Fuen.obj");
 	Model museo("resources/objects/museo/museo/museo.obj");
-	//Model techo("resources/objects/Techo/techo.obj");
+	Model techo("resources/objects/Techo/techo.obj");
 	Model banca("resources/objects/Silla/Silla.obj");
-	//Model caballo("resources/objects/tiroAlBlanco/tiroalblanco.obj");
 	Model stitch("resources/objects/Stitch/Stitch.obj");
 	Model lilo("resources/objects/Lilo/lilo.obj");
 	Model mcqueen("resources/objects/McQueen/mcqueenCarroceria.obj");
@@ -535,105 +533,522 @@ int main()
 	KeyFrame[0].posZ = 0.0f;
 	KeyFrame[0].giroMonito = -45.0f;
 
+	KeyFrame[0].giroCaballoTorso = 0.0f;
+	KeyFrame[0].giroCaballoCabeza = 0.0f;
+	KeyFrame[0].giroCola = 0.0f;
+	KeyFrame[0].giroPD1arriba = 0.0f;
+	KeyFrame[0].giroPD1abajo = 0.0f;
+	KeyFrame[0].giroPD2arriba = 0.0f;
+	KeyFrame[0].giroPD2abajo = 0.0f;
+	KeyFrame[0].giroPDbase = 0.0f;
+	KeyFrame[0].giroPT2arriba = 0.0f;
+	KeyFrame[0].giroPT2abajo = 0.0f;
+	KeyFrame[0].giroPT1arriba = 0.0f;
+	KeyFrame[0].giroPT1abajo = 0.0f;
+
+	KeyFrame[0].bf_Y = 0.0f;
+	KeyFrame[0].bf_Z = 0.0f;
+	KeyFrame[0].gCabeza = 0.0f;
+	KeyFrame[0].gP1_PataA = 0.0f;
+	KeyFrame[0].gP2_PataA = 0.0f;
+	KeyFrame[0].gP3_PataA = 0.0f;
+	KeyFrame[0].gP1_PataBC = 0.0f;
+	KeyFrame[0].gP2_PataBC = 0.0f;
+	KeyFrame[0].gP3_PataBC = 0.0f;
+	KeyFrame[0].gPinzas = 0.0f;
+	KeyFrame[0].gOjo = 0.0f;
+
 	KeyFrame[1].posX = 0.0f;
 	KeyFrame[1].posY = 1.0f;
 	KeyFrame[1].posZ = 1.0f;
 	KeyFrame[1].giroMonito = -45.0f;
+
+	KeyFrame[1].giroCaballoTorso = 0.0f;
+	KeyFrame[1].giroCaballoCabeza = 11.0f;
+	KeyFrame[1].giroCola = 0.0f;
+	KeyFrame[1].giroPD1arriba = -42.0f;
+	KeyFrame[1].giroPD1abajo = -31.0f;
+	KeyFrame[1].giroPD2arriba = 0.0f;
+	KeyFrame[1].giroPD2abajo = 0.0f;
+	KeyFrame[1].giroPDbase = 0.0f;
+	KeyFrame[1].giroPT2arriba = 0.0f;
+	KeyFrame[1].giroPT2abajo = 0.0f;
+	KeyFrame[1].giroPT1arriba = -17.0f;
+	KeyFrame[1].giroPT1abajo = 20.0f;
+
+	KeyFrame[1].bf_Y = 0.0f;
+	KeyFrame[1].bf_Z = 0.0f;
+	KeyFrame[1].gCabeza = -33.0f;
+	KeyFrame[1].gP1_PataA = 0.0f;
+	KeyFrame[1].gP2_PataA = 0.0f;
+	KeyFrame[1].gP3_PataA = 0.0f;
+	KeyFrame[1].gP1_PataBC = 0.0f;
+	KeyFrame[1].gP2_PataBC = 0.0f;
+	KeyFrame[1].gP3_PataBC = 0.0f;
+	KeyFrame[1].gPinzas = 0.0f;
+	KeyFrame[1].gOjo = 0.0f;
 
 	KeyFrame[2].posX = 1.0f;
 	KeyFrame[2].posY = 2.0f;
 	KeyFrame[2].posZ = 2.0f;
 	KeyFrame[2].giroMonito = -45.0f;
 
+	KeyFrame[2].giroCaballoTorso = 0.0f;
+	KeyFrame[2].giroCaballoCabeza = 11.0f;
+	KeyFrame[2].giroCola = -29.0f;
+	KeyFrame[2].giroPD1arriba = 23.0f;
+	KeyFrame[2].giroPD1abajo = 4.0f;
+	KeyFrame[2].giroPD2arriba = 0.0f;
+	KeyFrame[2].giroPD2abajo = 0.0f;
+	KeyFrame[2].giroPDbase = 0.0f;
+	KeyFrame[2].giroPT2arriba = 0.0f;
+	KeyFrame[2].giroPT2abajo = 0.0f;
+	KeyFrame[2].giroPT1arriba = -17.0f;
+	KeyFrame[2].giroPT1abajo = 20.0f;
+
+	KeyFrame[2].bf_Y = 0.0f;
+	KeyFrame[2].bf_Z = 0.0f;
+	KeyFrame[2].gCabeza = -60.0f;
+	KeyFrame[2].gP1_PataA = 0.0f;
+	KeyFrame[2].gP2_PataA = 0.0f;
+	KeyFrame[2].gP3_PataA = 0.0f;
+	KeyFrame[2].gP1_PataBC = 0.0f;
+	KeyFrame[2].gP2_PataBC = 0.0f;
+	KeyFrame[2].gP3_PataBC = 0.0f;
+	KeyFrame[2].gPinzas = 0.0f;
+	KeyFrame[2].gOjo = 0.0f;
+
 	KeyFrame[3].posX = 2.0f;
 	KeyFrame[3].posY = 3.0f;
 	KeyFrame[3].posZ = 3.0f;
 	KeyFrame[3].giroMonito = -45.0f;
+
+	KeyFrame[3].giroCaballoTorso = 0.0f;
+	KeyFrame[3].giroCaballoCabeza = 11.0f;
+	KeyFrame[3].giroCola = -29.0f;
+	KeyFrame[3].giroPD1arriba = -19.0f;
+	KeyFrame[3].giroPD1abajo = -31.0f;
+	KeyFrame[3].giroPD2arriba = 0.0f;
+	KeyFrame[3].giroPD2abajo = 0.0f;
+	KeyFrame[3].giroPDbase = 0.0f;
+	KeyFrame[3].giroPT2arriba = 0.0f;
+	KeyFrame[3].giroPT2abajo = 0.0f;
+	KeyFrame[3].giroPT1arriba = -17.0f;
+	KeyFrame[3].giroPT1abajo = 20.0f;
+
+	KeyFrame[3].bf_Y = 0.0f;
+	KeyFrame[3].bf_Z = 0.0f;
+	KeyFrame[3].gCabeza = -43.0f;
+	KeyFrame[3].gP1_PataA = 0.0f;
+	KeyFrame[3].gP2_PataA = 0.0f;
+	KeyFrame[3].gP3_PataA = 0.0f;
+	KeyFrame[3].gP1_PataBC = 0.0f;
+	KeyFrame[3].gP2_PataBC = 0.0f;
+	KeyFrame[3].gP3_PataBC = 0.0f;
+	KeyFrame[3].gPinzas = 0.0f;
+	KeyFrame[3].gOjo = 0.0f;
 
 	KeyFrame[4].posX = 3.0f;
 	KeyFrame[4].posY = 4.0f;
 	KeyFrame[4].posZ = 4.0f;
 	KeyFrame[4].giroMonito = -45.0f;
 
+	KeyFrame[4].giroCaballoTorso = 0.0f;
+	KeyFrame[4].giroCaballoCabeza = 11.0f;
+	KeyFrame[4].giroCola = -29.0f;
+	KeyFrame[4].giroPD1arriba = 34.0f;
+	KeyFrame[4].giroPD1abajo = -20.0f;
+	KeyFrame[4].giroPD2arriba = 0.0f;
+	KeyFrame[4].giroPD2abajo = 0.0f;
+	KeyFrame[4].giroPDbase = 0.0f;
+	KeyFrame[4].giroPT2arriba = 0.0f;
+	KeyFrame[4].giroPT2abajo = 0.0f;
+	KeyFrame[4].giroPT1arriba = -17.0f;
+	KeyFrame[4].giroPT1abajo = 20.0f;
+
+	KeyFrame[4].bf_Y = 0.0f;
+	KeyFrame[4].bf_Z = 0.0f;
+	KeyFrame[4].gCabeza = -5.0f;
+	KeyFrame[4].gP1_PataA = 0.0f;
+	KeyFrame[4].gP2_PataA = 0.0f;
+	KeyFrame[4].gP3_PataA = 0.0f;
+	KeyFrame[4].gP1_PataBC = 0.0f;
+	KeyFrame[4].gP2_PataBC = 0.0f;
+	KeyFrame[4].gP3_PataBC = 0.0f;
+	KeyFrame[4].gPinzas = 0.0f;
+	KeyFrame[4].gOjo = 0.0f;
+
 	KeyFrame[5].posX = 4.0f;
 	KeyFrame[5].posY = 3.0f;
 	KeyFrame[5].posZ = 5.0f;
 	KeyFrame[5].giroMonito = -45.0f;
+
+	KeyFrame[5].giroCaballoTorso = 0.0f;
+	KeyFrame[5].giroCaballoCabeza = 11.0f;
+	KeyFrame[5].giroCola = -29.0f;
+	KeyFrame[5].giroPD1arriba = -40.0f;
+	KeyFrame[5].giroPD1abajo = -25.0f;
+	KeyFrame[5].giroPD2arriba = 0.0f;
+	KeyFrame[5].giroPD2abajo = 0.0f;
+	KeyFrame[5].giroPDbase = 0.0f;
+	KeyFrame[5].giroPT2arriba = 0.0f;
+	KeyFrame[5].giroPT2abajo = 0.0f;
+	KeyFrame[5].giroPT1arriba = -17.0f;
+	KeyFrame[5].giroPT1abajo = 20.0f;
+
+	KeyFrame[5].bf_Y = 0.0f;
+	KeyFrame[5].bf_Z = 0.0f;
+	KeyFrame[5].gCabeza = 28.0f;
+	KeyFrame[5].gP1_PataA = 0.0f;
+	KeyFrame[5].gP2_PataA = 0.0f;
+	KeyFrame[5].gP3_PataA = 0.0f;
+	KeyFrame[5].gP1_PataBC = 0.0f;
+	KeyFrame[5].gP2_PataBC = 0.0f;
+	KeyFrame[5].gP3_PataBC = 0.0f;
+	KeyFrame[5].gPinzas = 0.0f;
+	KeyFrame[5].gOjo = 0.0f;
 
 	KeyFrame[6].posX = 5.0f;
 	KeyFrame[6].posY = 2.0f;
 	KeyFrame[6].posZ = 6.0f;
 	KeyFrame[6].giroMonito = -45.0f;
 
-	KeyFrame[6].posX = 6.0f;
-	KeyFrame[6].posY = 1.0f;
-	KeyFrame[6].posZ = 7.0f;
-	KeyFrame[6].giroMonito = -45.0f;
+	KeyFrame[6].giroCaballoTorso = 0.0f;
+	KeyFrame[6].giroCaballoCabeza = 11.0f;
+	KeyFrame[6].giroCola = 0.0f;
+	KeyFrame[6].giroPD1arriba = 11.0f;
+	KeyFrame[6].giroPD1abajo = -10.0f;
+	KeyFrame[6].giroPD2arriba = 0.0f;
+	KeyFrame[6].giroPD2abajo = 0.0f;
+	KeyFrame[6].giroPDbase = 0.0f;
+	KeyFrame[6].giroPT2arriba = 0.0f;
+	KeyFrame[6].giroPT2abajo = 0.0f;
+	KeyFrame[6].giroPT1arriba = -17.0f;
+	KeyFrame[6].giroPT1abajo = 20.0f;
+
+	KeyFrame[6].bf_Y = 0.0f;
+	KeyFrame[6].bf_Z = 0.0f;
+	KeyFrame[6].gCabeza = 58.0f;
+	KeyFrame[6].gP1_PataA = 0.0f;
+	KeyFrame[6].gP2_PataA = 0.0f;
+	KeyFrame[6].gP3_PataA = 0.0f;
+	KeyFrame[6].gP1_PataBC = 0.0f;
+	KeyFrame[6].gP2_PataBC = 0.0f;
+	KeyFrame[6].gP3_PataBC = 0.0f;
+	KeyFrame[6].gPinzas = 0.0f;
+	KeyFrame[6].gOjo = 0.0f;
 
 	KeyFrame[7].posX = 7.0f;
 	KeyFrame[7].posY = 0.0f;
 	KeyFrame[7].posZ = 8.0f;
 	KeyFrame[7].giroMonito = -45.0f;
 
+	KeyFrame[7].giroCaballoTorso = 0.0f;
+	KeyFrame[7].giroCaballoCabeza = -7.0f;
+	KeyFrame[7].giroCola = 4.0f;
+	KeyFrame[7].giroPD1arriba = 11.0f;
+	KeyFrame[7].giroPD1abajo = -10.0001f;
+	KeyFrame[7].giroPD2arriba = 0.0f;
+	KeyFrame[7].giroPD2abajo = 0.0f;
+	KeyFrame[7].giroPDbase = 0.0f;
+	KeyFrame[7].giroPT2arriba = 0.0f;
+	KeyFrame[7].giroPT2abajo = 0.0f;
+	KeyFrame[7].giroPT1arriba = -17.0f;
+	KeyFrame[7].giroPT1abajo = 20.0f;
+
+	KeyFrame[7].bf_Y = 0.0f;
+	KeyFrame[7].bf_Z = 0.0f;
+	KeyFrame[7].gCabeza = 28.0f;
+	KeyFrame[7].gP1_PataA = 0.0f;
+	KeyFrame[7].gP2_PataA = 0.0f;
+	KeyFrame[7].gP3_PataA = 0.0f;
+	KeyFrame[7].gP1_PataBC = 0.0f;
+	KeyFrame[7].gP2_PataBC = 0.0f;
+	KeyFrame[7].gP3_PataBC = 0.0f;
+	KeyFrame[7].gPinzas = 0.0f;
+	KeyFrame[7].gOjo = 0.0f;
+
 	KeyFrame[8].posX = 7.0f;
 	KeyFrame[8].posY = 1.0f;
 	KeyFrame[8].posZ = 8.0f;
 	KeyFrame[8].giroMonito = -45.0f;
+
+	KeyFrame[8].giroCaballoTorso = -39.0f;
+	KeyFrame[8].giroCaballoCabeza = -7.0f;
+	KeyFrame[8].giroCola = -12.0f;
+	KeyFrame[8].giroPD1arriba = -76.0f;
+	KeyFrame[8].giroPD1abajo = -10.0001f;
+	KeyFrame[8].giroPD2arriba = -72.0f;
+	KeyFrame[8].giroPD2abajo = 0.0f;
+	KeyFrame[8].giroPDbase = 0.0f;
+	KeyFrame[8].giroPT2arriba = 42.0f;
+	KeyFrame[8].giroPT2abajo = 0.0f;
+	KeyFrame[8].giroPT1arriba = 32.0f;
+	KeyFrame[8].giroPT1abajo = 20.0f;
+
+	KeyFrame[8].bf_Y = 0.0f;
+	KeyFrame[8].bf_Z = 0.0f;
+	KeyFrame[8].gCabeza = -5.0f;
+	KeyFrame[8].gP1_PataA = 0.0f;
+	KeyFrame[8].gP2_PataA = 0.0f;
+	KeyFrame[8].gP3_PataA = 0.0f;
+	KeyFrame[8].gP1_PataBC = 0.0f;
+	KeyFrame[8].gP2_PataBC = 0.0f;
+	KeyFrame[8].gP3_PataBC = 0.0f;
+	KeyFrame[8].gPinzas = 0.0f;
+	KeyFrame[8].gOjo = 0.0f;
 
 	KeyFrame[9].posX = 8.0f;
 	KeyFrame[9].posY = 2.0f;
 	KeyFrame[9].posZ = 9.0f;
 	KeyFrame[9].giroMonito = -45.0f;
 
+	KeyFrame[9].giroCaballoTorso = -39.0f;
+	KeyFrame[9].giroCaballoCabeza = -7.0f;
+	KeyFrame[9].giroCola = -12.0f;
+	KeyFrame[9].giroPD1arriba = -86.0f;
+	KeyFrame[9].giroPD1abajo = 38.9999f;
+	KeyFrame[9].giroPD2arriba = -32.0f;
+	KeyFrame[9].giroPD2abajo = 58.0f;
+	KeyFrame[9].giroPDbase = 25.0f;
+	KeyFrame[9].giroPT2arriba = 42.0f;
+	KeyFrame[9].giroPT2abajo = 0.0f;
+	KeyFrame[9].giroPT1arriba = 32.0f;
+	KeyFrame[9].giroPT1abajo = 20.0f;
+
+	KeyFrame[9].bf_Y = 0.0f;
+	KeyFrame[9].bf_Z = 1.0f;
+	KeyFrame[9].gCabeza = -5.0f;
+	KeyFrame[9].gP1_PataA = -15.0f;
+	KeyFrame[9].gP2_PataA = 0.0f;
+	KeyFrame[9].gP3_PataA = 0.0f;
+	KeyFrame[9].gP1_PataBC = 0.0f;
+	KeyFrame[9].gP2_PataBC = 0.0f;
+	KeyFrame[9].gP3_PataBC = -6.0f;
+	KeyFrame[9].gPinzas = -4.0f;
+	KeyFrame[9].gOjo = 0.0f;
+
 	KeyFrame[10].posX = 9.0f;
 	KeyFrame[10].posY = 3.0f;
 	KeyFrame[10].posZ = 10.0f;
 	KeyFrame[10].giroMonito = -45.0f;
+
+	KeyFrame[10].giroCaballoTorso = -39.0f;
+	KeyFrame[10].giroCaballoCabeza = -7.0f;
+	KeyFrame[10].giroCola = -12.0f;
+	KeyFrame[10].giroPD1arriba = -41.0f;
+	KeyFrame[10].giroPD1abajo = 38.9999f;
+	KeyFrame[10].giroPD2arriba = -93.0f;
+	KeyFrame[10].giroPD2abajo = 25.0f;
+	KeyFrame[10].giroPDbase = 25.0f;
+	KeyFrame[10].giroPT2arriba = 42.0f;
+	KeyFrame[10].giroPT2abajo = 0.0f;
+	KeyFrame[10].giroPT1arriba = 32.0f;
+	KeyFrame[10].giroPT1abajo = 20.0f;
+
+	KeyFrame[10].bf_Y = 0.0f;
+	KeyFrame[10].bf_Z = 1.0f;
+	KeyFrame[10].gCabeza = -5.0f;
+	KeyFrame[10].gP1_PataA = 0.0f;
+	KeyFrame[10].gP2_PataA = 12.0f;
+	KeyFrame[10].gP3_PataA = 6.0f;
+	KeyFrame[10].gP1_PataBC = 0.0f;
+	KeyFrame[10].gP2_PataBC = 0.0f;
+	KeyFrame[10].gP3_PataBC = -6.0f;
+	KeyFrame[10].gPinzas = -4.0f;
+	KeyFrame[10].gOjo = 0.0f;
 
 	KeyFrame[11].posX = 10.0f;
 	KeyFrame[11].posY = 4.0f;
 	KeyFrame[11].posZ = 11.0f;
 	KeyFrame[11].giroMonito = -45.0f;
 
+	KeyFrame[11].giroCaballoTorso = -39.0f;
+	KeyFrame[11].giroCaballoCabeza = -1.99999f;
+	KeyFrame[11].giroCola = 30.0f;
+	KeyFrame[11].giroPD1arriba = -78.9999f;
+	KeyFrame[11].giroPD1abajo = 7.99987f;
+	KeyFrame[11].giroPD2arriba = -36.0001f;
+	KeyFrame[11].giroPD2abajo = 25.0001f;
+	KeyFrame[11].giroPDbase = 11.0f;
+	KeyFrame[11].giroPT2arriba = 36.0f;
+	KeyFrame[11].giroPT2abajo = 0.0f;
+	KeyFrame[11].giroPT1arriba = 40.0f;
+	KeyFrame[11].giroPT1abajo = 20.0f;
+
+	KeyFrame[11].bf_Y = 0.0f;
+	KeyFrame[11].bf_Z = 2.0f;
+	KeyFrame[11].gCabeza = -4.99999f;
+	KeyFrame[11].gP1_PataA = -12.0f;
+	KeyFrame[11].gP2_PataA = 0.00000476837f;
+	KeyFrame[11].gP3_PataA = 0.00000238419f;
+	KeyFrame[11].gP1_PataBC = 0.0f;
+	KeyFrame[11].gP2_PataBC = 0.0f;
+	KeyFrame[11].gP3_PataBC = -6.0f;
+	KeyFrame[11].gPinzas = -9.0f;
+	KeyFrame[11].gOjo = 0.0f;
+
 	KeyFrame[12].posX = 11.0f;
 	KeyFrame[12].posY = 3.0f;
 	KeyFrame[12].posZ = 12.0f;
 	KeyFrame[12].giroMonito = -45.0f;
+
+	KeyFrame[12].giroCaballoTorso = -2.0f;
+	KeyFrame[12].giroCaballoCabeza = -9.99997f;
+	KeyFrame[12].giroCola = -1.99999f;
+	KeyFrame[12].giroPD1arriba = -3.99982f;
+	KeyFrame[12].giroPD1abajo = -2.00024f;
+	KeyFrame[12].giroPD2arriba = -11.0005f;
+	KeyFrame[12].giroPD2abajo = 2.00029f;
+	KeyFrame[12].giroPDbase = 9.99995f;
+	KeyFrame[12].giroPT2arriba = 9.00011f;
+	KeyFrame[12].giroPT2abajo = -8.0f;
+	KeyFrame[12].giroPT1arriba = 5.00011f;
+	KeyFrame[12].giroPT1abajo = -3.0f;
+
+	KeyFrame[12].bf_Y = 0.0f;
+	KeyFrame[12].bf_Z = 3.0f;
+	KeyFrame[12].gCabeza = -4.99999f;
+	KeyFrame[12].gP1_PataA = -20.0f;
+	KeyFrame[12].gP2_PataA = 12.0f;
+	KeyFrame[12].gP3_PataA = 5.0f;
+	KeyFrame[12].gP1_PataBC = 0.0f;
+	KeyFrame[12].gP2_PataBC = 0.0f;
+	KeyFrame[12].gP3_PataBC = -6.0f;
+	KeyFrame[12].gPinzas = -3.0f;
+	KeyFrame[12].gOjo = 0.0f;
 
 	KeyFrame[13].posX = 12.0f;
 	KeyFrame[13].posY = 2.0f;
 	KeyFrame[13].posZ = 13.0f;
 	KeyFrame[13].giroMonito = -45.0f;
 
+	KeyFrame[13].giroCaballoTorso = 0.0f;
+	KeyFrame[13].giroCaballoCabeza = 0.0f;
+	KeyFrame[13].giroCola = 0.0f;
+	KeyFrame[13].giroPD1arriba = 0.0f;
+	KeyFrame[13].giroPD1abajo = 0.0f;
+	KeyFrame[13].giroPD2arriba = 0.0f;
+	KeyFrame[13].giroPD2abajo = 0.0f;
+	KeyFrame[13].giroPDbase = 0.0f;
+	KeyFrame[13].giroPT2arriba = 0.0f;
+	KeyFrame[13].giroPT2abajo = 0.0f;
+	KeyFrame[13].giroPT1arriba = 0.0f;
+	KeyFrame[13].giroPT1abajo = 0.0f;
+
+	KeyFrame[13].bf_Y = 0.0f;
+	KeyFrame[13].bf_Z = 3.0f;
+	KeyFrame[13].gCabeza = -4.99999f;
+	KeyFrame[13].gP1_PataA = -1.00002f;
+	KeyFrame[13].gP2_PataA = 1.00001f;
+	KeyFrame[13].gP3_PataA = 2.0f;
+	KeyFrame[13].gP1_PataBC = 0.0f;
+	KeyFrame[13].gP2_PataBC = 0.0f;
+	KeyFrame[13].gP3_PataBC = -6.0f;
+	KeyFrame[13].gPinzas = -4.0f;
+	KeyFrame[13].gOjo = 0.0f;
+
 	KeyFrame[14].posX = 13.0f;
 	KeyFrame[14].posY = 1.0f;
 	KeyFrame[14].posZ = 14.0f;
 	KeyFrame[14].giroMonito = -45.0f;
+
+	KeyFrame[14].bf_Y = 0.0f;
+	KeyFrame[14].bf_Z = 3.0f;
+	KeyFrame[14].gCabeza = -4.99999f;
+	KeyFrame[14].gP1_PataA = -1.00002f;
+	KeyFrame[14].gP2_PataA = 1.00001f;
+	KeyFrame[14].gP3_PataA = 2.0f;
+	KeyFrame[14].gP1_PataBC = 0.0f;
+	KeyFrame[14].gP2_PataBC = 0.0f;
+	KeyFrame[14].gP3_PataBC = -6.0f;
+	KeyFrame[14].gPinzas = -15.0f;
+	KeyFrame[14].gOjo = 0.0f;
 
 	KeyFrame[15].posX = 14.0f;
 	KeyFrame[15].posY = 0.0f;
 	KeyFrame[15].posZ = 15.0f;
 	KeyFrame[15].giroMonito = -45.0f;
 
+	KeyFrame[15].bf_Y = 0.0f;
+	KeyFrame[15].bf_Z = 3.0f;
+	KeyFrame[15].gCabeza = -4.99999f;
+	KeyFrame[15].gP1_PataA = -1.00002f;
+	KeyFrame[15].gP2_PataA = 1.00001f;
+	KeyFrame[15].gP3_PataA = 2.0f;
+	KeyFrame[15].gP1_PataBC = 0.0f;
+	KeyFrame[15].gP2_PataBC = 0.0f;
+	KeyFrame[15].gP3_PataBC = -6.0f;
+	KeyFrame[15].gPinzas = -15.0f;
+	KeyFrame[15].gOjo = 24.0f;
+
 	KeyFrame[16].posX = 14.0f;
 	KeyFrame[16].posY = 1.0f;
 	KeyFrame[16].posZ = 15.0f;
 	KeyFrame[16].giroMonito = 45.0f;
+
+	KeyFrame[16].bf_Y = 0.0f;
+	KeyFrame[16].bf_Z = 3.0f;
+	KeyFrame[16].gCabeza = -4.99999f;
+	KeyFrame[16].gP1_PataA = -1.00002f;
+	KeyFrame[16].gP2_PataA = 1.00001f;
+	KeyFrame[16].gP3_PataA = 2.0f;
+	KeyFrame[16].gP1_PataBC = 0.0f;
+	KeyFrame[16].gP2_PataBC = 0.0f;
+	KeyFrame[16].gP3_PataBC = -6.0f;
+	KeyFrame[16].gPinzas = -21.0f;
+	KeyFrame[16].gOjo = 24.0f;
 
 	KeyFrame[17].posX = 15.0f;
 	KeyFrame[17].posY = 2.0f;
 	KeyFrame[17].posZ = 14.0f;
 	KeyFrame[17].giroMonito = 45.0f;
 
+	KeyFrame[17].bf_Y = 0.0f;
+	KeyFrame[17].bf_Z = 3.0f;
+	KeyFrame[17].gCabeza = -4.99999f;
+	KeyFrame[17].gP1_PataA = -1.00002f;
+	KeyFrame[17].gP2_PataA = 1.00001f;
+	KeyFrame[17].gP3_PataA = 2.0f;
+	KeyFrame[17].gP1_PataBC = 0.0f;
+	KeyFrame[17].gP2_PataBC = 0.0f;
+	KeyFrame[17].gP3_PataBC = -6.0f;
+	KeyFrame[17].gPinzas = -21.0f;
+	KeyFrame[17].gOjo = 36.0f;
+
 	KeyFrame[18].posX = 16.0f;
 	KeyFrame[18].posY = 3.0f;
 	KeyFrame[18].posZ = 13.0f;
 	KeyFrame[18].giroMonito = 45.0f;
 
+	KeyFrame[18].bf_Y = 0.0f;
+	KeyFrame[18].bf_Z = 3.0f;
+	KeyFrame[18].gCabeza = -4.99999f;
+	KeyFrame[18].gP1_PataA = -1.00002f;
+	KeyFrame[18].gP2_PataA = 1.00001f;
+	KeyFrame[18].gP3_PataA = 2.0f;
+	KeyFrame[18].gP1_PataBC = 0.0f;
+	KeyFrame[18].gP2_PataBC = 0.0f;
+	KeyFrame[18].gP3_PataBC = -6.0f;
+	KeyFrame[18].gPinzas = -11.0f;
+	KeyFrame[18].gOjo = 36.0f;
+
 	KeyFrame[19].posX = 17.0f;
 	KeyFrame[19].posY = 4.0f;
 	KeyFrame[19].posZ = 12.0f;
 	KeyFrame[19].giroMonito = 45.0f;
+
+	KeyFrame[19].bf_Y = 0.0f;
+	KeyFrame[19].bf_Z = 3.0f;
+	KeyFrame[19].gCabeza = -4.99999f;
+	KeyFrame[19].gP1_PataA = -1.00002f;
+	KeyFrame[19].gP2_PataA = 1.00001f;
+	KeyFrame[19].gP3_PataA = 2.0f;
+	KeyFrame[19].gP1_PataBC = 0.0f;
+	KeyFrame[19].gP2_PataBC = 0.0f;
+	KeyFrame[19].gP3_PataBC = -6.0f;
+	KeyFrame[19].gPinzas = -4.0f;
+	KeyFrame[19].gOjo = 3.0f;
 
 	KeyFrame[20].posX = 18.0f;
 	KeyFrame[20].posY = 3.0f;
@@ -946,11 +1361,11 @@ int main()
 		staticShader.setMat4("model", model);
 		museo.Draw(staticShader);
 
-/*		model = glm::translate(glm::mat4(1.0f), glm::vec3(10.0f, 0.2f, 5.0f));
+		model = glm::translate(glm::mat4(1.0f), glm::vec3(10.0f, 0.2f, 5.0f));
 		model = glm::scale(model, glm::vec3(0.13f));
 		staticShader.setMat4("model", model);
 		techo.Draw(staticShader);
-*/
+
 		model = glm::translate(glm::mat4(1.0f), glm::vec3(35.0f, 0.0f, -48.0f));
 		model = glm::scale(model, glm::vec3(1.0f));
 		staticShader.setMat4("model", model);
@@ -1004,18 +1419,6 @@ int main()
 
 		// SALA DISNEY PIXAR
 
-/*		model = glm::translate(glm::mat4(1.0f), glm::vec3(-36.0f, 1.0f, 48.0f));
-		model = glm::rotate(model, glm::radians(90.0f), glm::vec3(0.0f, 1.0f, 0.0f));
-		model = glm::scale(model, glm::vec3(0.4f));
-		staticShader.setMat4("model", model);
-	    baby.Draw(staticShader);
-
-		model = glm::translate(glm::mat4(1.0f), glm::vec3(-55.0f, 1.0f, 65.0f));
-		model = glm::rotate(model, glm::radians(-270.0f), glm::vec3(0.0f, 1.0f, 0.0f));
-		model = glm::scale(model, glm::vec3(0.06f));
-		staticShader.setMat4("model", model);
-		caballo.Draw(staticShader);
-*/
 		model = glm::translate(glm::mat4(1.0f), glm::vec3(-54.0f, 1.0f, 28.0f));
 		model = glm::rotate(model, glm::radians(90.0f), glm::vec3(0.0f, 1.0f, 0.0f));
 		model = glm::scale(model, glm::vec3(0.065f));
@@ -1168,13 +1571,13 @@ int main()
 		// -------------------------------------------------------------------------------------------------------------------------
 
 		// BabyFace Alfombra
-		model = glm::translate(glm::mat4(1.0f), glm::vec3(-36.0f, 2.0f, 48.0f));
+		model = glm::translate(glm::mat4(1.0f), glm::vec3(-36.0f, 0.8f, 48.0f));
 		model = glm::rotate(model, glm::radians(90.0f), glm::vec3(0.0f, 1.0f, 0.0f));
 		staticShader.setMat4("model", model);
 		alfombra_babyface.Draw(staticShader);
 
 		// BabyFace base
-		model = glm::translate(glm::mat4(1.0f), glm::vec3(-36.0f, 4.0f, 48.0f));
+		model = glm::translate(glm::mat4(1.0f), glm::vec3(-36.0f, 2.19f, 48.0f));
 		model = glm::translate(model, glm::vec3(bf_Z, bf_Y, 0.0f));
 		tmpBTS = model = glm::rotate(model, glm::radians(90.0f), glm::vec3(0.0f, 1.0f, 0.0f));
 		staticShader.setMat4("model", model);
